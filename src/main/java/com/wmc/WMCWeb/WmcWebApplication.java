@@ -10,5 +10,4 @@ public class WmcWebApplication {
 		SpringApplication.run(WmcWebApplication.class, args);
 		System.out.println("hello hi nice to meet you");
 	}
-
 }
