@@ -11,5 +11,4 @@ public class WmcWebApplication {
 		System.out.println("hello hi nice to meet you");
 		System.out.println("혜린");
 	}
-
 }
