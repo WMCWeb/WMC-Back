@@ -34,3 +34,4 @@ build/
 
 ### Java Template ###
 *.class
+/bin/
