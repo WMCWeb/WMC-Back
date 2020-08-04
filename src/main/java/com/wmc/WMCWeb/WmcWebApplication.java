@@ -12,6 +12,7 @@ public class WmcWebApplication {
 		System.out.println("혜린");
 		System.out.println("경훈");
 		System.out.println("수빈");
+		System.out.println("수빈1");
 	}
 
 }
