@@ -1,4 +1,4 @@
-package com.wmc.WMCWeb.repository;
+package com.wmc.WMCWeb.notice;
 
 
 import com.wmc.WMCWeb.notice.entity.Notice;
