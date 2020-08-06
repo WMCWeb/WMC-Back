@@ -26,19 +26,23 @@ public class CacheNoticeRepository implements NoticeRepository{
     @Override
     public Optional<List<Notice>> findByDateTime(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         List<Notice> result = repository.stream()
-                .filter(notice -> notice.getDateTime().isAfter(startDateTime))
-                .filter(notice -> notice.getDateTime().isBefore(endDateTime))
+                .filter(notice -> notice.getDateTime().isAfter(startDateTime)
+                        && notice.getDateTime().isBefore(endDateTime)
+                )
                 .sorted((n1, n2) -> {
-                    if (n1.getDateTime().isBefore(n2.getDateTime())) {
+                    if (n1.getDateTime().isBefore(n2.getDateTime()))
                         return 1;
-                    } else {
+                    else if(n1.getDateTime().isAfter(n2.getDateTime()))
                         return -1;
-                    }
+                    else
+                        return 0;
                 })
                 .collect(Collectors.toList());
 
-        //@TODO: 날짜로 검색 마저 만들기
-        return Optional.empty();
+        if(result.size() == 0)
+            return Optional.empty();
+        else
+            return Optional.of(result);
     }
 
     @Override
