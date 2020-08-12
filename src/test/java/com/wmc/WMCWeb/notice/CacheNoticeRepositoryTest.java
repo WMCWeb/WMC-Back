@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-
 class CacheNoticeRepositoryTest {
 
     CacheNoticeRepository repository = new CacheNoticeRepository();

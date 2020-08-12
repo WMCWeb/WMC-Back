@@ -1,11 +1,12 @@
 package com.wmc.WMCWeb.notice.repository;
 
 import com.wmc.WMCWeb.notice.entity.Notice;
+import com.wmc.WMCWeb.notice.entity.policy.SearchPolicy;
 
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,10 @@ public class CacheNoticeRepository implements NoticeRepository{
     }
 
     @Override
+    public Optional<List<Notice>> findNotice(Map param) {
+        return Optional.empty();
+    }
+
     public Optional<List<Notice>> findByDateTime(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         List<Notice> result = repository.stream()
                 .filter(notice -> notice.getDateTime().isAfter(startDateTime)
@@ -43,20 +48,5 @@ public class CacheNoticeRepository implements NoticeRepository{
             return Optional.empty();
         else
             return Optional.of(result);
-    }
-
-    @Override
-    public Optional<List<Notice>> findByWriter(String Writer) {
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<List<Notice>> findByKeyWord(String KeyWord) {
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<List<Notice>> findAll() {
-        return Optional.empty();
     }
 }
