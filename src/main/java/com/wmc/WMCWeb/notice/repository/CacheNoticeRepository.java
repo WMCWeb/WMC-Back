@@ -1,7 +1,8 @@
 package com.wmc.WMCWeb.notice.repository;
 
 import com.wmc.WMCWeb.notice.entity.Notice;
-import com.wmc.WMCWeb.notice.entity.policy.SearchPolicy;
+import com.wmc.WMCWeb.notice.policy.SearchPolicy;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Repository
 public class CacheNoticeRepository implements NoticeRepository{
 
     private static List<Notice> repository = new ArrayList<>();
@@ -25,7 +27,11 @@ public class CacheNoticeRepository implements NoticeRepository{
     }
 
     @Override
-    public Optional<List<Notice>> findNotice(Map param) {
+    public Optional<List<Notice>> findNotice(List<SearchPolicy> searchConditions) {
+        /*
+        @TODO:
+            parameter 꺼내서 공지 조회후 반환
+         */
         return Optional.empty();
     }
 
