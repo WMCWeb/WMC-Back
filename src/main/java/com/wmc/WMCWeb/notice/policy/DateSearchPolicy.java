@@ -22,6 +22,9 @@ public class DateSearchPolicy implements SearchPolicy{
         param.put("end", params.get(1));
     }
 
+    /**
+     * @return { "start" : 시작날짜, "end" : 끝날짜 }
+     */
     @Override
     public Optional<Map<String, String>> getParam() {
         if(param.containsKey("start") && param.containsKey("end")){

@@ -37,4 +37,10 @@ public class NoticeService {
         selectedResult = noticeRepository.findNotice(searchConditions);
         return selectedResult.orElse(null);
     }
+
+    public boolean editNotice(String regNo, Map<String, String> param){
+        Notice target = null;
+        noticeRepository.editNotice(regNo, target);
+        return true;
+    }
 }

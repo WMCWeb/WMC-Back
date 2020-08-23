@@ -8,7 +8,8 @@ import java.util.Optional;
 
 public interface NoticeRepository {
 
-    Optional<Notice> save(Notice notice);
+    boolean save(Notice notice);
     Optional<List<Notice>> findNotice(List<SearchPolicy> searchConditions);
+    boolean editNotice(String regNo, Notice notice);
 
 }
