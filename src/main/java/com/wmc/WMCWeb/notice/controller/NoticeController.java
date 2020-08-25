@@ -21,7 +21,6 @@ public class NoticeController {
 
     @GetMapping
     public List<Notice> getNotice(@RequestParam Map<String, String> param){
-        List<Notice> result = noticeService.findNotice(param);
-        return result;
+        return noticeService.findNotice(param);
     }
 }
