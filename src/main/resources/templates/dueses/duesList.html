@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>입출금</th>
+                <th>금액</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dues : ${dueses}">
+                <td th:text="${dues.id}"></td>
+                <td th:number="${dues.state}"></td>
+                <td th:number="${dues.amount}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div> <!-- /container -->
+</body>
+</html>

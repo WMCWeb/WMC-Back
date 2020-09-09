@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+    <form action="/dueses/new" method="post">
+        <div class="form-group">
+            <label for="state">입출금</label>
+            <input type="number" id="state" name="state" placeholder="입금(0)/출금(1)">
+            <label for="amount">금액</label>
+            <input type="number" id="amount" name="amount" placeholder="금액을 입력하세요.">
+        </div>
+        <button type="submit">등록</button>
+    </form>
+</div> <!-- /container -->
+</body>
+</html>
