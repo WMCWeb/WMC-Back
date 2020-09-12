@@ -44,9 +44,8 @@ public class DuesController {
      * @return List Of Dues
      */
     @GetMapping
-    public String getDue(@RequestParam Map<String, String> param, Model model) {
-        List<Dues> dues = duesService.findDues();
-        model.addAttribute("/dueses", dues);
-        return "/dueses/duesList";
+    public List<Dues> getDue(@RequestParam Map<String, String> param) {
+        List<Dues> dues = duesService.findDues(param);
+        return dues;
     }
 }
