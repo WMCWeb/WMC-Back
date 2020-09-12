@@ -5,12 +5,13 @@ import com.wmc.WMCWeb.dues.service.DuesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
-@Controller
+@RestController
+@RequestMapping("/dues")
 public class DuesController {
 
     private final DuesService duesService;
@@ -20,12 +21,12 @@ public class DuesController {
         this.duesService = duesService;
     }
 
-    @GetMapping(value= "/dueses/new")
+    @GetMapping(value = "/new")
     public String createForm(){
         return "/dueses/createDuesForm.html";
     }
 
-    @PostMapping(value = "/dueses/new")
+    @PostMapping(value = "/new")
     public String create(DuesForm form){
         Dues dues = new Dues();
         dues.setState(form.getState());
@@ -36,12 +37,16 @@ public class DuesController {
         return "redirect:/";
     }
 
-    @GetMapping(value = "/dueses")
-    public String list(Model model){
+    /**
+     * 조회
+     * @param Request Parameter (Select Contdition)
+     * @param model
+     * @return List Of Dues
+     */
+    @GetMapping
+    public String getDue(@RequestParam Map<String, String> param, Model model) {
         List<Dues> dues = duesService.findDues();
         model.addAttribute("/dueses", dues);
         return "/dueses/duesList";
-
     }
-
 }

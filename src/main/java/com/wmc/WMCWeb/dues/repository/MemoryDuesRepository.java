@@ -1,9 +1,11 @@
 package com.wmc.WMCWeb.dues.repository;
 
 import com.wmc.WMCWeb.dues.domain.Dues;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
+@Repository
 public class MemoryDuesRepository implements DuesRepository{
     private static Map<Long, Dues> store = new HashMap();
     private static long sequence = 0L;
