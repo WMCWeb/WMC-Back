@@ -33,7 +33,7 @@ public class DuesService {
     public List<Dues> findDues(Map<String, String> param){
         /*
         @TODO
-         param 분석해서 맞게 repository 함수 호출
+         param 분석해서 조건에 맞게 repository에서 꺼내와서 return
         */
         return duesRepository.findAll();
     }
