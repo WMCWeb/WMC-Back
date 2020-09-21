@@ -19,7 +19,7 @@
 	</properties>
 
 	<dependencies>
-		<!-- 2020.09.16 이경훈: For Mysql connection ,, 아마 MySQL JDBC드라이버 인듯.-->
+		<!-- 2020.09.16 이경훈: For Mysql connection ,, 아마 MySQL JDBC드라이버도 포함되어 있는 듯.-->
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 			<groupId>mysql</groupId>
