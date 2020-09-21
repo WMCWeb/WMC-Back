@@ -23,7 +23,6 @@ public class AwsMysqlDuesRepository implements DuesRepository {
     @Autowired
     ApplicationContext ctx;
 
-    private String DRIVER;
     private String URL;
     private String USERNAME;
     private String PASSWORD;
@@ -40,21 +39,22 @@ public class AwsMysqlDuesRepository implements DuesRepository {
     }
 
     /**
-     *  일단 임시로 aws ec2 인스턴스 만들어서 구축한 mysql db에 붙으려고 시도중..
-     * @TODO: user가 'backadm'@'58.152.208.9'로 붙는데 이 IP가 뭔지 모르겠다.. 왜이렇게 붙는건지 알아보기
+     * 2020.09.21 이경훈:
+     *  일단 임시로 aws ec2 인스턴스 만들어서 구축한 mysql db에 붙는것 까지 확인함
+     * @TODO: 모듈화 필요
      * @return
      */
     @Override
     public List<Dues> findAll(){
         Environment env = ctx.getEnvironment();
-        DRIVER = env.getProperty("spring.datasource.driver-class-name");
         URL = env.getProperty("spring.datasource.url");
         USERNAME = env.getProperty("spring.datasource.username");
         PASSWORD = env.getProperty("spring.datasource.password");
 
-
         String query = "SELECT * FROM test";
-        try (Connection conn = DriverManager.getConnection(URL + "/TEST", USERNAME, PASSWORD);
+        try (Connection conn = DriverManager.getConnection(URL,
+                USERNAME,
+                PASSWORD);
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query);
         )
