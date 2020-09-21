@@ -19,17 +19,11 @@
 	</properties>
 
 	<dependencies>
-		<!-- 2020.09.16 이경훈: For Mysql connection -->
+		<!-- 2020.09.16 이경훈: For Mysql connection ,, 아마 MySQL JDBC드라이버 인듯.-->
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
-
-		<!-- 2020.09.20 이경훈: For JDBC -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 
 		<dependency>
