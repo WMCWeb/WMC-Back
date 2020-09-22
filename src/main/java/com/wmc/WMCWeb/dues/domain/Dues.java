@@ -25,11 +25,8 @@ public class Dues {
         return amount;
     }
 
-    public void setAmount(Integer amount){
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
-
-
-
 
 }
