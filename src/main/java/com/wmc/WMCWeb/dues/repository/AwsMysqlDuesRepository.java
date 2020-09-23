@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -41,15 +42,16 @@ public class AwsMysqlDuesRepository implements DuesRepository {
     /**
      * 2020.09.21 이경훈:
      *  일단 임시로 aws ec2 인스턴스 만들어서 구축한 mysql db에 붙는것 까지 확인함
-     * @TODO: 모듈화 필요
+     * @TODO: connection 모듈화 필요
      * @return
      */
     @Override
-    public List<Dues> findAll(){
+    public List<Dues> findAll(Map<String, String> param){
         Environment env = ctx.getEnvironment();
         URL = env.getProperty("spring.datasource.url");
         USERNAME = env.getProperty("spring.datasource.username");
         PASSWORD = env.getProperty("spring.datasource.password");
+
 
         String query = "SELECT * FROM test";
         try (Connection conn = DriverManager.getConnection(URL,
@@ -70,7 +72,7 @@ public class AwsMysqlDuesRepository implements DuesRepository {
     }
 
     @Override
-    public Optional<Dues> findByState(Integer state) {
+    public Optional<Dues> findByState(String state) {
         return Optional.empty();
     }
 }

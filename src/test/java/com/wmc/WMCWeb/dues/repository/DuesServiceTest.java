@@ -30,7 +30,7 @@ class DuesServiceTest {
 
         //given
         Dues dues = new Dues();
-        dues.setState(0);
+        dues.setState("I");
         dues.setAmount(3000);
 
         //when

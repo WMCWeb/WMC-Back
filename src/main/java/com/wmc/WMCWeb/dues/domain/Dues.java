@@ -37,7 +37,8 @@ public class Dues {
     public Integer getAmount(){
         return amount;
     }
-    public void setAmount(Integer amount){
+
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 

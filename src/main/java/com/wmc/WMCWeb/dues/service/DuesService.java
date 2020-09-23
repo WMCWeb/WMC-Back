@@ -19,10 +19,9 @@ public class DuesService {
     /*
     회비내역 등록
      */
-
     public Long register(Dues dues){
         duesRepository.save(dues);
-        return dues.getId();
+        return dues.getRegId();
     }
 
     /**
@@ -31,11 +30,7 @@ public class DuesService {
      * @return 조회된 Due 리스트
      */
     public List<Dues> findDues(Map<String, String> param){
-        /*
-        @TODO
-         param 분석해서 조건에 맞게 repository에서 꺼내와서 return
-        */
-        return duesRepository.findAll();
+        return duesRepository.findAll(param);
     }
 
     public Optional<Dues> findOne(Long duesID){

@@ -2,13 +2,14 @@ package com.wmc.WMCWeb.dues.controller;
 
 public class DuesForm {
 
-    private Integer state, amount;
+    private String state;
+    private Integer amount;
 
-    public Integer getState(){
+    public String getState(){
         return state;
     }
 
-    public void setState(Integer state){
+    public void setState(String state){
         this.state = state;
     }
 
