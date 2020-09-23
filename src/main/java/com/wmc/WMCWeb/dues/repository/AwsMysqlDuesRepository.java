@@ -1,5 +1,6 @@
 package com.wmc.WMCWeb.dues.repository;
 
+import com.wmc.WMCWeb.common.JDBCManager;
 import com.wmc.WMCWeb.dues.domain.Dues;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -24,10 +25,8 @@ public class AwsMysqlDuesRepository implements DuesRepository {
     @Autowired
     ApplicationContext ctx;
 
-    private String URL;
-    private String USERNAME;
-    private String PASSWORD;
-
+    @Autowired
+    JDBCManager jdbcManager;
 
     @Override
     public Dues save(Dues dues) {
@@ -41,22 +40,21 @@ public class AwsMysqlDuesRepository implements DuesRepository {
 
     /**
      * 2020.09.21 이경훈:
-     *  일단 임시로 aws ec2 인스턴스 만들어서 구축한 mysql db에 붙는것 까지 확인함
-     * @TODO: connection 모듈화 필요
+     *  일단 임시로 aws ec2 인스턴스 만들어서 구축한 mysql db에 붙는것 까지 확인함=
      * @return
      */
     @Override
     public List<Dues> findAll(Map<String, String> param){
-        Environment env = ctx.getEnvironment();
-        URL = env.getProperty("spring.datasource.url");
-        USERNAME = env.getProperty("spring.datasource.username");
-        PASSWORD = env.getProperty("spring.datasource.password");
-
+        Connection conn = null;
+        try {
+            conn = jdbcManager.getTestDBConnection();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
 
         String query = "SELECT * FROM test";
-        try (Connection conn = DriverManager.getConnection(URL,
-                USERNAME,
-                PASSWORD);
+        try (
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query);
         )
@@ -66,7 +64,19 @@ public class AwsMysqlDuesRepository implements DuesRepository {
             }
         }
         catch(Exception e) {
+            System.out.println("DEBUG::cannot execute query");
             e.printStackTrace();
+        }
+        finally{
+            if(conn != null){
+                try{
+                    conn.close();
+                }
+                catch(SQLException e){
+                    System.out.println("DEBUG::cannot close connection");
+                    e.printStackTrace();
+                }
+            }
         }
         return null;
     }
