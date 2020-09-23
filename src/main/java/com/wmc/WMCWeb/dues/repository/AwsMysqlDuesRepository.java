@@ -44,7 +44,7 @@ public class AwsMysqlDuesRepository implements DuesRepository {
      * @return
      */
     @Override
-    public List<Dues> findAll(Map<String, String> param){
+    public List<Dues> findDue(Map<String, String> param){
         Connection conn = null;
         try {
             conn = jdbcManager.getTestDBConnection();

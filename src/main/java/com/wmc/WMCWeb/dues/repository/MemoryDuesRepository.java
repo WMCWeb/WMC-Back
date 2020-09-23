@@ -24,7 +24,7 @@ public class MemoryDuesRepository implements DuesRepository{
     }
 
     @Override
-    public List<Dues> findAll(Map<String, String> param){
+    public List<Dues> findDue(Map<String, String> param){
         return new ArrayList<>(store.values());
     }
 

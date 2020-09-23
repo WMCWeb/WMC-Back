@@ -30,7 +30,7 @@ public class DuesService {
      * @return 조회된 Due 리스트
      */
     public List<Dues> findDues(Map<String, String> param){
-        return duesRepository.findAll(param);
+        return duesRepository.findDue(param);
     }
 
     public Optional<Dues> findOne(Long duesID){

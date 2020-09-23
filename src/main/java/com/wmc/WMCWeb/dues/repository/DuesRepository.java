@@ -13,6 +13,6 @@ public interface DuesRepository {
     Dues save(Dues dues);
     Optional<Dues> findById(Long regId);
     Optional<Dues> findByState(String state);
-    List<Dues> findAll(Map<String, String> param);
+    List<Dues> findDue(Map<String, String> param);
 
 }
