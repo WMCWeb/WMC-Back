@@ -13,14 +13,14 @@ public class MemoryDuesRepository implements DuesRepository{
 
     @Override
     public Dues save(Dues dues){
-        dues.setId(++sequence);
-        store.put(dues.getId(), dues);
+        dues.setRegId(++sequence);
+        store.put(dues.getRegId(), dues);
         return dues;
     }
 
     @Override
-    public Optional<Dues> findById(Long id){
-        return Optional.ofNullable(store.get(id));
+    public Optional<Dues> findById(Long regId){
+        return Optional.ofNullable(store.get(regId));
     }
 
     @Override
@@ -29,7 +29,7 @@ public class MemoryDuesRepository implements DuesRepository{
     }
 
     @Override
-    public Optional<Dues> findByState(Integer state){
+    public Optional<Dues> findByState(String state){
         return store.values().stream()
                 .filter(dues->dues.getState().equals(state))
                 .findAny();

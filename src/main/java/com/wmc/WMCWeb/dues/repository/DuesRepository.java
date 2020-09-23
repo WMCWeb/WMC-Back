@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface DuesRepository {
     Dues save(Dues dues);
-    Optional<Dues> findById(Long id);
+    Optional<Dues> findById(Long regId);
     List<Dues> findAll();
-    Optional<Dues> findByState(Integer state);
+    Optional<Dues> findByState(String state);
 }
