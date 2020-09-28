@@ -25,7 +25,7 @@ public class DuesController {
     }
 
     @PostMapping(value = "/new")
-    public String create(DuesForm form){
+    public String create(DuesForm form, @RequestParam Map<String, String> param){
         Dues dues = new Dues();
         dues.setState(form.getState());
         dues.setAmount(form.getAmount());
@@ -36,13 +36,14 @@ public class DuesController {
     }
 
     /**
-     * 조회
-     * @param Request Parameter (Select Contdition)
+     * 회비내역 조회
+     * @param Request Parameter (조회 조건)
      * @param model
      * @return List Of Dues
      */
     @GetMapping
     public List<Dues> getDue(@RequestParam Map<String, String> param) {
+        System.out.println(param.get("test"));
         List<Dues> dues = duesService.findDues(param);
         return dues;
     }

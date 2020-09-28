@@ -18,7 +18,6 @@ public class MemoryDuesRepository implements DuesRepository{
         return dues;
     }
 
-    @Override
     public Optional<Dues> findById(Long regId){
         return Optional.ofNullable(store.get(regId));
     }
@@ -28,7 +27,6 @@ public class MemoryDuesRepository implements DuesRepository{
         return new ArrayList<>(store.values());
     }
 
-    @Override
     public Optional<Dues> findByState(String state){
         return store.values().stream()
                 .filter(dues->dues.getState().equals(state))

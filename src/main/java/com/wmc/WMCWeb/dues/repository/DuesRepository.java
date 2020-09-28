@@ -11,8 +11,6 @@ import java.util.Optional;
 @Repository
 public interface DuesRepository {
     Dues save(Dues dues);
-    Optional<Dues> findById(Long regId);
-    Optional<Dues> findByState(String state);
     List<Dues> findDue(Map<String, String> param);
 
 }
