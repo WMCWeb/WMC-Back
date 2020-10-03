@@ -1,15 +1,19 @@
 package com.wmc.WMCWeb.dues.service;
 
 import com.wmc.WMCWeb.dues.domain.Dues;
+import com.wmc.WMCWeb.dues.repository.AwsMysqlDuesRepository;
 import com.wmc.WMCWeb.dues.repository.DuesRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class DuesService {
+
+    private static final Logger logger = LogManager.getLogger(DuesService.class);
     private final DuesRepository duesRepository;
 
     public DuesService(DuesRepository duesRepository){
@@ -26,7 +30,7 @@ public class DuesService {
 
     /**
      * 조회 조건에 맞게 회비 내역 조회
-     * @param Request에서 넘어온 Parameter
+     * @param param: Request에서 넘어온 Parameter
      * @return 조회된 Due 리스트
      */
     public List<Dues> findDues(Map<String, String> param){

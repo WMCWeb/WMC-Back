@@ -24,7 +24,18 @@
     </Appenders>
     <!--    실제 Logger-->
     <Loggers>
+        <!--
+            2020.10.03 이경훈
+                Root logger로 보통 운영환경에서 INFO레벨로 설정한다.
+                일단 개발중이라 DEBUG레벨로 수정완료.
+        -->
+        <!--
         <Root level="INFO" additivity="false">
+            <AppenderRef ref="Console_Appender"/>
+            <AppenderRef ref="File_Appender"/>
+        </Root>
+        -->
+        <Root level="DEBUG" additivity="false">
             <AppenderRef ref="Console_Appender"/>
             <AppenderRef ref="File_Appender"/>
         </Root>
