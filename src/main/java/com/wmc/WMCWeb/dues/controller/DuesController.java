@@ -43,8 +43,8 @@ public class DuesController {
      */
     @GetMapping
     public List<Dues> getDue(@RequestParam Map<String, String> param) {
-        System.out.println(param.get("test"));
         List<Dues> dues = duesService.findDues(param);
+        
         return dues;
     }
 }

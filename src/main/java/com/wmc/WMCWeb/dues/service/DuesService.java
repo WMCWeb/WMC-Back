@@ -33,9 +33,4 @@ public class DuesService {
         return duesRepository.findDue(param);
     }
 
-    public Optional<Dues> findOne(Long duesID){
-        return duesRepository.findById(duesID);
-    }
-
-
 }

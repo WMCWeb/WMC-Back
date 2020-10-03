@@ -11,7 +11,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * 2020.09.20
@@ -26,7 +25,7 @@ public class AwsMysqlDuesRepository implements DuesRepository {
     private static final Logger logger = LogManager.getLogger(AwsMysqlDuesRepository.class);
 
     // 2020.09.28 이경훈: connection 생에 필요성한 정보들
-    @Value("${spring.datasource.url}")
+    @Value("${spring.datasource.test-url}")
     String URL;
 
     @Value("${spring.datasource.username}")
@@ -49,14 +48,14 @@ public class AwsMysqlDuesRepository implements DuesRepository {
     public List<Dues> findDue(Map<String, String> param){
 
         Dues temp = new Dues();
-        String query = "select * from category where cate_code = 'B'";
+        String query = "select * from category where code = 'B'";
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query);
         )
         {
             while(rs.next()){
-                temp.setCategory(rs.getString("cate_name"));
+                temp.setCategory(rs.getString("name"));
             }
         }
         catch(Exception e) {
