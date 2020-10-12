@@ -10,7 +10,7 @@ import java.util.Date;
  * */
 public class Dues {
 
-    private Long regId;
+    private String regId;
     private Date date;
     private Integer amount;
     private String category;
@@ -20,10 +20,10 @@ public class Dues {
     private String del;
     private Integer balance;
 
-    public Long getRegId(){
+    public String getRegId(){
         return regId;
     }
-    public void setRegId(Long regId){
+    public void setRegId(String regId){
         this.regId = regId;
     }
 

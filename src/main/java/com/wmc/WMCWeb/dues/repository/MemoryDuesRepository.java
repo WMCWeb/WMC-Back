@@ -7,18 +7,18 @@ import java.util.*;
 
 @Repository
 public class MemoryDuesRepository implements DuesRepository{
-    private static Map<Long, Dues> store = new HashMap();
+    private static Map<String, Dues> store = new HashMap();
     private static long sequence = 0L;
 
 
     @Override
     public Dues save(Dues dues){
-        dues.setRegId(++sequence);
+        dues.setRegId(String.valueOf(++sequence));
         store.put(dues.getRegId(), dues);
         return dues;
     }
 
-    public Optional<Dues> findById(Long regId){
+    public Optional<Dues> findById(String regId){
         return Optional.ofNullable(store.get(regId));
     }
 

@@ -34,8 +34,39 @@ public class AwsMysqlDuesRepository implements DuesRepository {
     @Value("${spring.datasource.password}")
     String PASSWORD;
 
+    /**
+     *2020.10.08. 윤수빈 : DUE 테이블에 Insert 시도
+     * @return
+     */
     @Override
     public Dues save(Dues dues) {
+        String query = "insert into due values(?,?,?,?,?,?,?,?,?)";
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+             PreparedStatement pstm = conn.prepareStatement(query);
+             ResultSet rs = pstm.getGeneratedKeys();
+        )
+        {
+            pstm.setString(1,dues.getRegId());
+            pstm.setDate(2, (Date) dues.getDate());
+            pstm.setInt(3,dues.getAmount());
+            pstm.setString(4,dues.getCategory());
+            pstm.setString(5,dues.getExplain());
+            pstm.setString(6,dues.getSemester());
+            pstm.setString(7,dues.getState());
+            pstm.setString(8,dues.getDel());
+            pstm.setInt(9,dues.getBalance());
+
+            pstm.executeUpdate(query);
+
+            while(rs.next()){
+                dues.setRegId(rs.getString(1));
+            }
+        }
+        catch(Exception e) {
+            logger.error("cannot execute query", e);
+            e.printStackTrace();
+        }
+
         return null;
     }
 

@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,15 +23,27 @@ public class DuesController {
     public DuesController(DuesService duesService){
         this.duesService = duesService;
     }
-
+/*
     @GetMapping(value = "/new")
     public String createForm(){
         return "/dueses/createDuesForm.html";
     }
+*/
 
-    @PostMapping(value = "/new")
+    @GetMapping("/new")
+    public List<Dues> createDue(@RequestParam Map<String, String> param) {
+        List<Dues> dues = duesService.findDues(param);
+        String state = param.get("state");
+        System.out.println("state : " + state);
+
+        return dues;
+    }
+
+
+    @PostMapping(value = "/dues")
     public String create(DuesForm form, @RequestParam Map<String, String> param){
         Dues dues = new Dues();
+        dues.setDate(form.getDate());
         dues.setState(form.getState());
         dues.setAmount(form.getAmount());
 
@@ -44,10 +57,14 @@ public class DuesController {
      * @param param Request Parameter (조회 조건)
      * @return List Of Dues
      */
+
     @GetMapping
     public List<Dues> getDue(@RequestParam Map<String, String> param) {
         List<Dues> dues = duesService.findDues(param);
 
+
         return dues;
     }
+
+
 }

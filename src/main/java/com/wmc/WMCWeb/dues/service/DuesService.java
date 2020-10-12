@@ -20,10 +20,10 @@ public class DuesService {
         this.duesRepository=duesRepository;
     }
 
-    /*
+    /**
     회비내역 등록
      */
-    public Long register(Dues dues){
+    public String register(Dues dues){
         duesRepository.save(dues);
         return dues.getRegId();
     }

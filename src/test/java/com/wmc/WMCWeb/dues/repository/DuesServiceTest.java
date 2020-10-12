@@ -34,7 +34,7 @@ class DuesServiceTest {
         dues.setAmount(3000);
 
         //when
-        Long saveId = duesService.register(dues);
+        String saveId = duesService.register(dues);
 
         //then
         Dues findDues = duesRepository.findById(saveId).get();
