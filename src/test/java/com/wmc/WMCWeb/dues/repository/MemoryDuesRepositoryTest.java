@@ -10,11 +10,11 @@ import static org.assertj.core.api.Assertions.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class MemoryDuesRepositoryTest {
-
-    MemoryDuesRepository repository = new MemoryDuesRepository();
+/*
+    AwsMysqlDuesRepository repository = new AwsMysqlDuesRepository();
 
     @AfterEach
-    public void afterEach(){
+    //public void afterEach(){
         repository.clearStore();
     }
 
@@ -65,5 +65,5 @@ public class MemoryDuesRepositoryTest {
         //then
   //      assertThat(result.size()).isEqualTo(2);
     }
-
+*/
 }

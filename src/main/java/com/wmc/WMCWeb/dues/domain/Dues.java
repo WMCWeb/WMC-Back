@@ -1,6 +1,6 @@
 package com.wmc.WMCWeb.dues.domain;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * 2020.09.23 윤수빈
@@ -11,7 +11,7 @@ import java.util.Date;
 public class Dues {
 
     private String regId;
-    private Date date;
+    private String date;
     private Integer amount;
     private String category;
     private String explain;
@@ -27,10 +27,10 @@ public class Dues {
         this.regId = regId;
     }
 
-    public Date getDate(){
+    public String getDate(){
         return date;
     }
-    public void setDate(Date date){
+    public void setDate(String date){
         this.date=date;
     }
 
@@ -73,8 +73,7 @@ public class Dues {
     public String getDel(){
         return del;
     }
-    public void setDel(String del){
-        this.del = del;
+    public void setDel(String del){ this.del = del;
     }
 
     public Integer getBalance(){

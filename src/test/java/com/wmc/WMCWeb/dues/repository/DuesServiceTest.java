@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DuesServiceTest {
-
+/*
     DuesService duesService;
     MemoryDuesRepository duesRepository;
 
@@ -40,5 +40,5 @@ class DuesServiceTest {
         Dues findDues = duesRepository.findById(saveId).get();
         assertEquals(dues.getState(), findDues.getState());
         assertEquals(dues.getAmount(), findDues.getAmount());
-    }
+    }*/
 }

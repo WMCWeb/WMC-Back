@@ -6,23 +6,23 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 
 @Repository
-public class MemoryDuesRepository implements DuesRepository{
+public class MemoryDuesRepository {
     private static Map<String, Dues> store = new HashMap();
     private static long sequence = 0L;
 
 
-    @Override
-    public Dues save(Dues dues){
+   // @Override
+   /* public Dues save(Dues dues){
         dues.setRegId(String.valueOf(++sequence));
         store.put(dues.getRegId(), dues);
         return dues;
-    }
+    }*/
 
     public Optional<Dues> findById(String regId){
         return Optional.ofNullable(store.get(regId));
     }
 
-    @Override
+    //@Override
     public List<Dues> findDue(Map<String, String> param){
         return new ArrayList<>(store.values());
     }
