@@ -1,80 +1,31 @@
-[36m2020/11/07 19:30:49,314[m [32m[INFO ][m  [org.springframework.boot.StartupInfoLogger] [33m[main][m- Started WmcWebApplication in 4.236 seconds (JVM running for 6.527)
- -[36m2020/11/07 19:30:52,112[m [32m[INFO ][m  [org.apache.juli.logging.DirectJDKLog] [33m[http-nio-8080-exec-1][m- Initializing Spring DispatcherServlet 'dispatcherServlet'
- -[36m2020/11/07 19:30:52,118[m [32m[INFO ][m  [org.springframework.web.servlet.FrameworkServlet] [33m[http-nio-8080-exec-1][m- Initializing Servlet 'dispatcherServlet'
- -[36m2020/11/07 19:30:52,119[m [34m[DEBUG][m  [org.springframework.web.servlet.DispatcherServlet] [33m[http-nio-8080-exec-1][m- Detected StandardServletMultipartResolver
- -[36m2020/11/07 19:30:52,147[m [34m[DEBUG][m  [org.springframework.web.servlet.FrameworkServlet] [33m[http-nio-8080-exec-1][m- enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
- -[36m2020/11/07 19:30:52,147[m [32m[INFO ][m  [org.springframework.web.servlet.FrameworkServlet] [33m[http-nio-8080-exec-1][m- Completed initialization in 28 ms
- -[36m2020/11/07 19:30:52,168[m [34m[DEBUG][m  [org.springframework.core.log.LogFormatUtils] [33m[http-nio-8080-exec-1][m- GET "/dues/new?date=2020-10-03&amount=300&category=B&explain=Y&semester=2020-1&state=i&del=N&balance=300", parameters={masked}
- -[36m2020/11/07 19:30:52,172[m [34m[DEBUG][m  [org.springframework.web.servlet.handler.AbstractHandlerMapping] [33m[http-nio-8080-exec-1][m- Mapped to com.wmc.WMCWeb.dues.controller.DuesController#createDue(Map)
- -[36m2020/11/07 19:30:52,732[m [31m[ERROR][m  [com.wmc.WMCWeb.dues.repository.AwsMysqlDuesRepository] [33m[http-nio-8080-exec-1][m- cannot execute query
- - java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1' for key 'PRIMARY'
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:117) ~[mysql-connector-java-8.0.20.jar:8.0.20]
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97) ~[mysql-connector-java-8.0.20.jar:8.0.20]
-	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122) ~[mysql-connector-java-8.0.20.jar:8.0.20]
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953) ~[mysql-connector-java-8.0.20.jar:8.0.20]
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1092) ~[mysql-connector-java-8.0.20.jar:8.0.20]
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1040) ~[mysql-connector-java-8.0.20.jar:8.0.20]
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeLargeUpdate(ClientPreparedStatement.java:1347) ~[mysql-connector-java-8.0.20.jar:8.0.20]
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:1025) ~[mysql-connector-java-8.0.20.jar:8.0.20]
-	at com.wmc.WMCWeb.dues.repository.AwsMysqlDuesRepository.save(AwsMysqlDuesRepository.java:68) [classes/:?]
-	at com.wmc.WMCWeb.dues.service.DuesService.register(DuesService.java:28) [classes/:?]
-	at com.wmc.WMCWeb.dues.controller.DuesController.createDue(DuesController.java:55) [classes/:?]
-	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
-	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
-	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
-	at java.lang.reflect.Method.invoke(Method.java:566) ~[?:?]
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) [spring-web-5.2.7.RELEASE.jar:5.2.7.RELEASE]
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) [spring-web-5.2.7.RELEASE.jar:5.2.7.RELEASE]
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105) [spring-webmvc-5.2.7.RELEASE.jar:5.2.7.RELEASE]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:879) [spring-webmvc-5.2.7.RELEASE.jar:5.2.7.RELEASE]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793) [spring-webmvc-5.2.7.RELEASE.jar:5.2.7.RELEASE]
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) [spring-webmvc-5.2.7.RELEASE.jar:5.2.7.RELEASE]
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040) [spring-webmvc-5.2.7.RELEASE.jar:5.2.7.RELEASE]
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943) [spring-webmvc-5.2.7.RELEASE.jar:5.2.7.RELEASE]
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) [spring-webmvc-5.2.7.RELEASE.jar:5.2.7.RELEASE]
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898) [spring-webmvc-5.2.7.RELEASE.jar:5.2.7.RELEASE]
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) [spring-webmvc-5.2.7.RELEASE.jar:5.2.7.RELEASE]
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) [tomcat-embed-websocket-9.0.36.jar:9.0.36]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) [spring-web-5.2.7.RELEASE.jar:5.2.7.RELEASE]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) [spring-web-5.2.7.RELEASE.jar:5.2.7.RELEASE]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) [spring-web-5.2.7.RELEASE.jar:5.2.7.RELEASE]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) [spring-web-5.2.7.RELEASE.jar:5.2.7.RELEASE]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) [spring-web-5.2.7.RELEASE.jar:5.2.7.RELEASE]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) [spring-web-5.2.7.RELEASE.jar:5.2.7.RELEASE]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:373) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1590) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) [?:?]
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) [?:?]
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.36.jar:9.0.36]
-	at java.lang.Thread.run(Thread.java:834) [?:?]
-[36m2020/11/07 19:30:52,837[m [34m[DEBUG][m  [org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor] [33m[http-nio-8080-exec-1][m- Using 'application/json;q=0.8', given [text/html, application/xhtml+xml, image/webp, image/apng, application/xml;q=0.9, application/signed-exchange;v=b3;q=0.9, */*;q=0.8] and supported [application/json, application/*+json, application/json, application/*+json]
- -[36m2020/11/07 19:30:52,838[m [34m[DEBUG][m  [org.springframework.core.log.LogFormatUtils] [33m[http-nio-8080-exec-1][m- Writing [com.wmc.WMCWeb.dues.domain.Dues@3eb262b1]
- -[36m2020/11/07 19:30:52,859[m [34m[DEBUG][m  [org.springframework.web.servlet.FrameworkServlet] [33m[http-nio-8080-exec-1][m- Completed 200 OK
- -[36m2020/11/07 19:31:41,787[m [34m[DEBUG][m  [org.springframework.core.log.LogFormatUtils] [33m[http-nio-8080-exec-2][m- GET "/dues/new?date=2020-10-03&amount=300&category=B&explain=Y&semester=2020-1&state=i&del=N&balance=300", parameters={masked}
- -[36m2020/11/07 19:31:41,788[m [34m[DEBUG][m  [org.springframework.web.servlet.handler.AbstractHandlerMapping] [33m[http-nio-8080-exec-2][m- Mapped to com.wmc.WMCWeb.dues.controller.DuesController#createDue(Map)
- -[36m2020/11/07 19:31:42,184[m [34m[DEBUG][m  [org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor] [33m[http-nio-8080-exec-2][m- Using 'application/json;q=0.8', given [text/html, application/xhtml+xml, image/webp, image/apng, application/xml;q=0.9, application/signed-exchange;v=b3;q=0.9, */*;q=0.8] and supported [application/json, application/*+json, application/json, application/*+json]
- -[36m2020/11/07 19:31:42,184[m [34m[DEBUG][m  [org.springframework.core.log.LogFormatUtils] [33m[http-nio-8080-exec-2][m- Writing [com.wmc.WMCWeb.dues.domain.Dues@6fc0f975]
- -[36m2020/11/07 19:31:42,186[m [34m[DEBUG][m  [org.springframework.web.servlet.FrameworkServlet] [33m[http-nio-8080-exec-2][m- Completed 200 OK
+[36m2020/11/07 22:29:50,382[m [34m[DEBUG][m  [org.springframework.core.env.PropertySourcesPropertyResolver] [33m[main][m- Found key 'spring.liveBeansView.mbeanDomain' in PropertySource 'systemProperties' with value of type String
+ -[36m2020/11/07 22:29:50,394[m [32m[INFO ][m  [org.springframework.boot.StartupInfoLogger] [33m[main][m- Started WmcWebApplication in 1.522 seconds (JVM running for 2.748)
+ -[36m2020/11/07 22:29:50,809[m [34m[DEBUG][m  [org.springframework.core.env.PropertySourcesPropertyResolver] [33m[RMI TCP Connection(1)-127.0.0.1][m- Found key 'local.server.port' in PropertySource 'server.ports' with value of type Integer
+ -[36m2020/11/07 22:30:09,744[m [32m[INFO ][m  [org.apache.juli.logging.DirectJDKLog] [33m[http-nio-8080-exec-1][m- Initializing Spring DispatcherServlet 'dispatcherServlet'
+ -[36m2020/11/07 22:30:09,745[m [32m[INFO ][m  [org.springframework.web.servlet.FrameworkServlet] [33m[http-nio-8080-exec-1][m- Initializing Servlet 'dispatcherServlet'
+ -[36m2020/11/07 22:30:09,745[m [34m[DEBUG][m  [org.springframework.web.servlet.DispatcherServlet] [33m[http-nio-8080-exec-1][m- Detected StandardServletMultipartResolver
+ -[36m2020/11/07 22:30:09,752[m [34m[DEBUG][m  [org.springframework.web.servlet.FrameworkServlet] [33m[http-nio-8080-exec-1][m- enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+ -[36m2020/11/07 22:30:09,752[m [32m[INFO ][m  [org.springframework.web.servlet.FrameworkServlet] [33m[http-nio-8080-exec-1][m- Completed initialization in 7 ms
+ -[36m2020/11/07 22:30:09,759[m [34m[DEBUG][m  [org.springframework.core.log.LogFormatUtils] [33m[http-nio-8080-exec-1][m- GET "/dues", parameters={}
+ -[36m2020/11/07 22:30:09,762[m [34m[DEBUG][m  [org.springframework.web.servlet.handler.AbstractHandlerMapping] [33m[http-nio-8080-exec-1][m- Mapped to com.wmc.WMCWeb.dues.controller.DuesController#getDue(Map)
+ -[36m2020/11/07 22:30:10,390[m [34m[DEBUG][m  [org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor] [33m[http-nio-8080-exec-1][m- Using 'application/json;q=0.8', given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, application/signed-exchange;v=b3;q=0.9, */*;q=0.8] and supported [application/json, application/*+json, application/json, application/*+json]
+ -[36m2020/11/07 22:30:10,390[m [34m[DEBUG][m  [org.springframework.core.log.LogFormatUtils] [33m[http-nio-8080-exec-1][m- Writing [[com.wmc.WMCWeb.dues.domain.Dues@6b754739]]
+ -[36m2020/11/07 22:30:10,432[m [34m[DEBUG][m  [org.springframework.web.servlet.FrameworkServlet] [33m[http-nio-8080-exec-1][m- Completed 200 OK
+ -[36m2020/11/07 22:30:10,501[m [34m[DEBUG][m  [org.springframework.core.log.LogFormatUtils] [33m[http-nio-8080-exec-2][m- GET "/favicon.ico", parameters={}
+ -[36m2020/11/07 22:30:10,504[m [34m[DEBUG][m  [org.springframework.web.servlet.handler.AbstractHandlerMapping] [33m[http-nio-8080-exec-2][m- Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+ -[36m2020/11/07 22:30:10,506[m [34m[DEBUG][m  [org.springframework.web.servlet.resource.ResourceHttpRequestHandler] [33m[http-nio-8080-exec-2][m- Resource not found
+ -[36m2020/11/07 22:30:10,506[m [34m[DEBUG][m  [org.springframework.web.servlet.FrameworkServlet] [33m[http-nio-8080-exec-2][m- Completed 404 NOT_FOUND
+ -[36m2020/11/07 22:30:10,511[m [34m[DEBUG][m  [org.springframework.core.log.LogFormatUtils] [33m[http-nio-8080-exec-2][m- "ERROR" dispatch for GET "/error", parameters={}
+ -[36m2020/11/07 22:30:10,513[m [34m[DEBUG][m  [org.springframework.web.servlet.handler.AbstractHandlerMapping] [33m[http-nio-8080-exec-2][m- Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+ -[36m2020/11/07 22:30:10,520[m [34m[DEBUG][m  [org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor] [33m[http-nio-8080-exec-2][m- Using 'application/json;q=0.8', given [image/avif, image/webp, image/apng, image/*, */*;q=0.8] and supported [application/json, application/*+json, application/json, application/*+json]
+ -[36m2020/11/07 22:30:10,520[m [34m[DEBUG][m  [org.springframework.core.log.LogFormatUtils] [33m[http-nio-8080-exec-2][m- Writing [{timestamp=Sat Nov 07 22:30:10 KST 2020, status=404, error=Not Found, message=, path=/favicon.ico}]
+ -[36m2020/11/07 22:30:10,527[m [34m[DEBUG][m  [org.springframework.web.servlet.FrameworkServlet] [33m[http-nio-8080-exec-2][m- Exiting from "ERROR" dispatch, status 404
+ -[36m2020/11/07 22:45:05,895[m [34m[DEBUG][m  [org.springframework.context.support.AbstractApplicationContext] [33m[SpringContextShutdownHook][m- Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@7fcbe147, started on Sat Nov 07 22:29:49 KST 2020
+ -[36m2020/11/07 22:45:05,901[m [34m[DEBUG][m  [org.springframework.core.env.PropertySourcesPropertyResolver] [33m[SpringContextShutdownHook][m- Found key 'spring.liveBeansView.mbeanDomain' in PropertySource 'systemProperties' with value of type String
+ -[36m2020/11/07 22:45:05,915[m [34m[DEBUG][m  [org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup] [33m[SpringContextShutdownHook][m- Stopping beans in phase 2147483647
+ -[36m2020/11/07 22:45:05,922[m [34m[DEBUG][m  [org.springframework.context.support.DefaultLifecycleProcessor] [33m[SpringContextShutdownHook][m- Bean 'webServerGracefulShutdown' completed its stop procedure
+ -[36m2020/11/07 22:45:05,923[m [34m[DEBUG][m  [org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup] [33m[SpringContextShutdownHook][m- Stopping beans in phase 2147483646
+ -[36m2020/11/07 22:45:05,953[m [34m[DEBUG][m  [org.springframework.context.support.DefaultLifecycleProcessor] [33m[SpringContextShutdownHook][m- Bean 'webServerStartStop' completed its stop procedure
+ -[36m2020/11/07 22:45:05,955[m [34m[DEBUG][m  [org.springframework.jmx.export.MBeanExporter] [33m[SpringContextShutdownHook][m- Unregistering JMX-exposed beans on shutdown
+ -[36m2020/11/07 22:45:05,956[m [32m[INFO ][m  [org.springframework.scheduling.concurrent.ExecutorConfigurationSupport] [33m[SpringContextShutdownHook][m- Shutting down ExecutorService 'applicationTaskExecutor'
  -
