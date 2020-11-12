@@ -82,4 +82,20 @@ public class Dues {
     public void setBalance(Integer balance){
         this.balance = balance;
     }
+
+    // 2020.11.12 이경훈: 디버깅 위한 함수
+    @Override
+    public String toString() {
+        return "Dues{" +
+                "regId='" + regId + '\'' +
+                ", date='" + date + '\'' +
+                ", amount=" + amount +
+                ", category='" + category + '\'' +
+                ", explain='" + explain + '\'' +
+                ", semester='" + semester + '\'' +
+                ", state='" + state + '\'' +
+                ", del='" + del + '\'' +
+                ", balance=" + balance +
+                '}';
+    }
 }

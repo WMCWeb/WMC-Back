@@ -11,6 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * 2020.09.20
@@ -86,31 +87,102 @@ public class AwsMysqlDuesRepository implements DuesRepository {
     }
 
     /**
-     *
-     * @return
+     * @param param : request 파라미터
+     * @return : 조회된 회비내역 리스트
      */
-    // 2020.09.21 이경훈: 일단 임시로 aws ec2 인스턴스 만들어서 구축한 mysql db에 붙는것 까지 확인함
+    // 2020.11.12 이경훈: 조회 개발 v1.0
+    // @TODO: {1. 전체조회만 테스트 완료, 조건별로 테스트 필요}, {2. paging}
     @Override
     public List<Dues> findDue(Map<String, String> param){
+        StringBuilder sql = new StringBuilder();
+        List<Dues> result = new ArrayList<>();
+        sql.append("SELECT * FROM due WHERE del = 'N'\n");
 
-        Dues temp = new Dues();
-        String query = "select * from category where code = 'B'";
-        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(query);
-        )
-        {
-            while(rs.next()){
-                temp.setCategory(rs.getString("name"));
-            }
+        String dateCode = param.get("dateCode");
+        if("D".equals(dateCode)){
+            // "시작일 + 마지막일"로  조회검색
+            sql.append("    AND DATE_FORMAT(date, '%Y%m%d') BETWEEN ? AND ?\n");
         }
-        catch(Exception e) {
-            logger.error("cannot execute query", e);
+        else if("S".equals(dateCode)){
+            // "년도 + 학기"로 검색
+            sql.append("    AND semester = ?\n");
+        }
+
+        if(param.containsKey("keyword")){
+            // 키워도 검색
+            sql.append("    AND explanation LIKE CONCAT('%', ?, '%')\n");
+        }
+
+        if(param.containsKey("state")){
+            // 수입/지출 검색
+            sql.append("    AND state = ?\n");
+        }
+
+        if(param.containsKey("category")){
+            // 카테고리 검색
+            sql.append("    AND category = ?\n");
+        }
+
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+             PreparedStatement pstmt = ((Supplier<PreparedStatement>)() -> {
+                 // supplier에서 PreparedStatement 파라미터 완성
+                 try {
+                     int idx = 1;
+                     PreparedStatement s = conn.prepareStatement(sql.toString());
+                     if("D".equals(dateCode)) {
+                         String startDate = param.get("startDate");
+                         String endDate = param.get("endDate");
+                         s.setString(idx++, startDate);
+                         s.setString(idx++, endDate);
+                     }
+                     else if("S".equals(dateCode)) {
+                         String semester = param.get("yearSemester");
+                         s.setString(idx++, semester);
+                     }
+
+                     if(param.containsKey("keyword")){
+                         // 키워드 검색
+                         String keyword = param.get("keyword");
+                         s.setString(idx++, keyword);
+                     }
+
+                     if(param.containsKey("state")){
+                         // 수입/지출 검색
+                         String state = param.get("state");
+                         s.setString(idx++, state);
+                     }
+
+                     if(param.containsKey("category")){
+                         // 카테고리 검색
+                         String category = param.get("category");
+                         s.setString(idx, category);
+                     }
+                     return s;
+                 }
+                 catch (SQLException e) {
+                     logger.error("cannot make PreparedStatement in findDue function");
+                     throw new RuntimeException(e);
+                 }
+             }).get();
+             ResultSet rs = pstmt.executeQuery();) {
+                while (rs.next()) {
+                    Dues temp = new Dues();
+                    temp.setRegId(rs.getString("id"));
+                    temp.setDate(rs.getString("date"));
+                    temp.setAmount(rs.getInt("amount"));
+                    temp.setExplain(rs.getString("explanation"));
+                    temp.setSemester(rs.getString("semester"));
+                    temp.setState(rs.getString("state"));
+                    temp.setBalance(rs.getInt("balance"));
+                    temp.setDel("N");
+                    result.add(temp);
+                    logger.debug(temp.toString() + "\n");
+                }
+        } catch (Exception e) {
+            logger.error("cannot select dues in findDue function");
             e.printStackTrace();
         }
-        ArrayList<Dues> res = new ArrayList<>();
-        res.add(temp);
-        return res;
+        return result;
     }
 
 }
