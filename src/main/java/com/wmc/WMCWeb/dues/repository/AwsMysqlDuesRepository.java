@@ -129,34 +129,44 @@ public class AwsMysqlDuesRepository implements DuesRepository {
                  try {
                      int idx = 1;
                      PreparedStatement s = conn.prepareStatement(sql.toString());
+                     StringBuilder parameters = new StringBuilder("\n[Parameters: ");
                      if("D".equals(dateCode)) {
                          String startDate = param.get("startDate");
                          String endDate = param.get("endDate");
                          s.setString(idx++, startDate);
                          s.setString(idx++, endDate);
+                         parameters.append(startDate + ", ");
+                         parameters.append(endDate + ", ");
                      }
                      else if("S".equals(dateCode)) {
                          String semester = param.get("yearSemester");
                          s.setString(idx++, semester);
+                         parameters.append(semester + ", ");
                      }
 
                      if(param.containsKey("keyword")){
                          // 키워드 검색
                          String keyword = param.get("keyword");
                          s.setString(idx++, keyword);
+                         parameters.append(keyword + ", ");
                      }
 
                      if(param.containsKey("state")){
                          // 수입/지출 검색
                          String state = param.get("state");
                          s.setString(idx++, state);
+                         parameters.append(state + ", ");
                      }
 
                      if(param.containsKey("category")){
                          // 카테고리 검색
                          String category = param.get("category");
                          s.setString(idx, category);
+                         parameters.append(category + ", ");
                      }
+
+                     // sql이랑 parameter 로깅
+                     logger.info(sql.toString() + "\n" + parameters.toString());
                      return s;
                  }
                  catch (SQLException e) {

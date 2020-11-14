@@ -85,12 +85,16 @@ public class DuesController {
      * @param param Request Parameter (조회 조건)
      * @return List Of Dues
      */
-
     @GetMapping
     public List<Dues> getDue(@RequestParam Map<String, String> param) {
-        List<Dues> dues = duesService.findDues(param);
-
-
+        List<Dues> dues = null;
+        if(param.containsKey("dateCode") && param.containsKey("pageNo")) {
+            dues = duesService.findDues(param);
+        }
+        else{
+            // 필수 parameter 누락
+            logger.error("dateCode와 pageNo는 필수 파라미터 입니다.");
+        }
         return dues;
     }
 
