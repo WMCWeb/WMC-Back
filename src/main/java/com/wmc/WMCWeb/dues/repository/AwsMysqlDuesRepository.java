@@ -41,9 +41,12 @@ public class AwsMysqlDuesRepository implements DuesRepository {
      * @return
      */
     private static long sequence = 0L;
+
     @Override
     public Dues save(Dues dues) throws SQLException {
-        dues.setRegId(String.valueOf(++sequence));
+        // 2020.11.22 이경훈: regNo를 db기반으로 생성하는 방식으로 수정
+        // @TODO: 테스트 필요
+        dues.setRegId(getRegNo());
         //String query = "insert into due(id,date,amount,category,explanation,semester,state,del,balance) values(?,?,?,?,?,?,?,?,?)";
 
         Connection conn = null;
@@ -84,6 +87,27 @@ public class AwsMysqlDuesRepository implements DuesRepository {
         }
 
         return null;
+    }
+
+    /**
+     * 2020.1.22 이경훈
+     *  reg_no 얻어오는 함수
+     * @return : reg_no
+     */
+    public String getRegNo() {
+        String result = "";
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+             CallableStatement cstmt = conn.prepareCall("{call sp_update_due_reg_no(?)}");
+        ){
+            cstmt.registerOutParameter(1, java.sql.Types.VARCHAR);
+            cstmt.executeQuery();
+            result = cstmt.getString(1);
+        }
+        catch(SQLException se){
+            logger.error("cannot update reg_no", se);
+        }
+
+        return result;
     }
 
     /**
