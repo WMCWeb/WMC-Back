@@ -1,5 +1,7 @@
 package com.wmc.WMCWeb.dues.domain;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.sql.Date;
 
 /**
@@ -10,12 +12,18 @@ import java.sql.Date;
  * */
 public class Dues {
 
+    @NotNull(message = "regID는 필수 값 입니다.")
     private String regId;
+    @NotNull(message = "date는 필수 값 입니다.")
+    @Pattern(regexp = "[0-90-90-90-9]+[-]+[0-90-9]+[-]+[0-30-9]")
     private String date;
+    @NotNull(message = "amount는 필수 값 입니다.")
     private Integer amount;
+    @NotNull(message = "category는 필수 값 입니다.")
     private String category;
     private String explain;
     private String semester;
+    @NotNull(message = "state는 필수 값 입니다.")
     private String state;
     private String del;
     private Integer balance;

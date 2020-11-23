@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
@@ -34,6 +35,7 @@ public class DuesController {
      * 회비내역 저장
      * 2020.10.31. : param 읽어오기 시도
      * 2020.11.07. : param 읽어오기 성공
+     * 2020.11.16. : 필수파라미터 검증 시도 -> validation?
      * TO DO : 1. regID
      * 2. date 데이터타입 Date로 할 것
      * 3. del : 디폴트값 N으로 주기
@@ -41,23 +43,38 @@ public class DuesController {
      * @return Dues
      */
 
-    @GetMapping("/new")
+    @PostMapping("/new")
     public Dues createDue(@RequestParam Map<String, String> param) throws SQLException {
         Dues dues = new Dues();
+
         String date = param.get("date");
-        dues.setDate(date);
+        if(date != null) {
+          //logger.info("date값 존재");
+          dues.setDate(date);
+        }
+        else{
+            // 필수 parameter 누락
+            logger.error("date는 필수 파라미터 입니다.");
+
+        }
         Integer amount = Integer.valueOf(param.get("amount"));
         dues.setAmount(amount);
+
         String category = param.get("category");
         dues.setCategory(category);
+
         String explain = param.get("explain");
         dues.setExplain(explain);
+
         String semester = param.get("semester");
         dues.setSemester(semester);
+
         String state = param.get("state");
         dues.setState(state);
+
         String del = param.get("del");
         dues.setDel(del);
+
         Integer balance = Integer.valueOf(param.get("balance"));
         dues.setBalance(balance);
 
