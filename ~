@@ -1,0 +1,17 @@
+저장 필수파라미터 적용 중
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch develop
+# Your branch is behind 'origin/develop' by 1 commit, and can be fast-forwarded.
+#   (use "git pull" to update your local branch)
+#
+# Changes to be committed:
+#	modified:   logs/log4j2_log.log
+#	modified:   pom.xml
+#	modified:   src/main/java/com/wmc/WMCWeb/dues/controller/DuesController.java
+#	modified:   src/main/java/com/wmc/WMCWeb/dues/domain/Dues.java
+#
+# Changes not staged for commit:
+#	modified:   logs/log4j2_log.log
+#

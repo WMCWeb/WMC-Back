@@ -2,7 +2,7 @@ package com.wmc.WMCWeb.dues.domain;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  * 2020.09.23 윤수빈
@@ -16,7 +16,7 @@ public class Dues {
     private String regId;
     @NotNull(message = "date는 필수 값 입니다.")
     @Pattern(regexp = "[0-90-90-90-9]+[-]+[0-90-9]+[-]+[0-30-9]")
-    private String date;
+    private LocalDate date;
     @NotNull(message = "amount는 필수 값 입니다.")
     private Integer amount;
     @NotNull(message = "category는 필수 값 입니다.")
@@ -35,10 +35,10 @@ public class Dues {
         this.regId = regId;
     }
 
-    public String getDate(){
+    public LocalDate getDate(){
         return date;
     }
-    public void setDate(String date){
+    public void setDate(LocalDate date){
         this.date=date;
     }
 

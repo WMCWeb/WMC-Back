@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +49,7 @@ public class DuesController {
     public Dues createDue(@RequestParam Map<String, String> param) throws SQLException {
         Dues dues = new Dues();
 
-        String date = param.get("date");
+        LocalDate date = LocalDate.parse(param.get("date"), DateTimeFormatter.ISO_DATE);
         if(date != null) {
           //logger.info("date값 존재");
           dues.setDate(date);
