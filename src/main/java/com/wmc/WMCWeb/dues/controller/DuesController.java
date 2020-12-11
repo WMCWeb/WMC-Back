@@ -13,6 +13,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -99,13 +100,15 @@ public class DuesController {
         return "redirect:/";
     }
 */
+
+    //http://localhost:8080/dues?dateCode=D&pageNo=1&startDate=20200101&endDate=20201211
     /**
      * 회비내역 조회
      * @param param Request Parameter (조회 조건)
      * @return List Of Dues
      */
     @GetMapping
-    public List<Dues> getDue(@RequestParam Map<String, String> param) {
+    public Map<String, List<Dues>> getDue(@RequestParam Map<String, String> param) {
         List<Dues> dues = null;
         if(param.containsKey("dateCode") && param.containsKey("pageNo")) {
             dues = duesService.findDues(param);
@@ -114,7 +117,9 @@ public class DuesController {
             // 필수 parameter 누락
             logger.error("dateCode와 pageNo는 필수 파라미터 입니다.");
         }
-        return dues;
+        Map<String, List<Dues>> result = new HashMap<>();
+        result.put("data", dues);
+        return result;
     }
 
 
