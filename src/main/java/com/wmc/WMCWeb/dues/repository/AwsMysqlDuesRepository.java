@@ -37,6 +37,9 @@ public class AwsMysqlDuesRepository implements DuesRepository {
     @Value("${spring.datasource.password}")
     String PASSWORD;
 
+    @Value("${spring.due.num-of-items}")
+    int NUMBER_OF_ITEMS;
+
     /**
      * 2020.10.08. 윤수빈 : DUE 테이블에 Insert 시도
      * 2020.11.06. 윤수빈 : INSERT 성공!
@@ -118,7 +121,7 @@ public class AwsMysqlDuesRepository implements DuesRepository {
      * @return : 조회된 회비내역 리스트
      */
     // 2020.11.12 이경훈: 조회 개발 v1.0
-    // @TODO: {1. 전체조회만 테스트 완료, 조건별로 테스트 필요}, {2. paging}
+    // @TODO: paging
     @Override
     public List<Dues> findDue(Map<String, String> param){
         StringBuilder sql = new StringBuilder();
@@ -150,6 +153,10 @@ public class AwsMysqlDuesRepository implements DuesRepository {
             sql.append("    AND category = ?\n");
         }
 
+        // pagination
+        sql.append("    ORDER BY DATE   \n");
+        sql.append("    LIMIT ?, ?      ");
+
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              PreparedStatement pstmt = ((Supplier<PreparedStatement>)() -> {
                  // supplier에서 PreparedStatement 파라미터 완성
@@ -162,35 +169,43 @@ public class AwsMysqlDuesRepository implements DuesRepository {
                          String endDate = param.get("endDate");
                          s.setString(idx++, startDate);
                          s.setString(idx++, endDate);
-                         parameters.append(startDate + ", ");
-                         parameters.append(endDate + ", ");
+                         parameters.append(startDate).append(", ");
+                         parameters.append(endDate).append(", ");
                      }
                      else if("S".equals(dateCode)) {
                          String semester = param.get("yearSemester");
                          s.setString(idx++, semester);
-                         parameters.append(semester + ", ");
+                         parameters.append(semester).append(", ");
                      }
 
                      if(param.containsKey("keyword")){
                          // 키워드 검색
                          String keyword = param.get("keyword");
                          s.setString(idx++, keyword);
-                         parameters.append(keyword + ", ");
+                         parameters.append(keyword).append(", ");
                      }
 
                      if(param.containsKey("state")){
                          // 수입/지출 검색
                          String state = param.get("state");
                          s.setString(idx++, state);
-                         parameters.append(state + ", ");
+                         parameters.append(state).append(", ");
                      }
 
                      if(param.containsKey("category")){
                          // 카테고리 검색
                          String category = param.get("category");
-                         s.setString(idx, category);
-                         parameters.append(category + ", ");
+                         s.setString(idx++, category);
+                         parameters.append(category).append(", ");
                      }
+
+                     // pagination
+                     int pageNo = Integer.parseInt(param.get("pageNo"));
+                     int firstNo = NUMBER_OF_ITEMS * (pageNo - 1);
+                     int lastNo = NUMBER_OF_ITEMS * pageNo;
+                     s.setInt(idx++, firstNo);
+                     s.setInt(idx, lastNo);
+                     parameters.append(firstNo).append(", ").append(lastNo).append(" ]");
 
                      // sql이랑 parameter 로깅
                      logger.info(sql.toString() + "\n" + parameters.toString());
