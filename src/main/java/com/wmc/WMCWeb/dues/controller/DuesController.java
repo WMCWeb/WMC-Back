@@ -51,7 +51,7 @@ public class DuesController {
         Dues dues = new Dues();
 
         LocalDate date = LocalDate.parse(param.get("date"), DateTimeFormatter.ISO_DATE);
-        if(date != null) {
+        if(param.containsKey("date")) {
           //logger.info("date값 존재");
           dues.setDate(date);
         }
@@ -84,7 +84,7 @@ public class DuesController {
         //System.out.println(amount);
         duesService.register(dues);
         return dues;
-        //http://localhost:8080/dues/news?date=20201003?amount=10000?category=B?explain=test?semester=2020-1?state=i?del=Y?balance=100
+        //http://localhost:8080/dues/news?date=20201003&amount=10000&category=B&explain=test&semester=2020-1&state=I&del=Y&balance=100
     }
 
 /*

@@ -65,7 +65,6 @@ public class AwsMysqlDuesRepository implements DuesRepository {
 
             pstm.setString(1,dues.getRegId());
             pstm.setDate(2, Date.valueOf(dues.getDate()));
-            // sql에서는 date로 받으려면 Date형태로 받아야 한다. LocalDate -> Date
             pstm.setInt(3,dues.getAmount());
             pstm.setString(4,dues.getCategory());
             pstm.setString(5,dues.getExplain());
@@ -220,8 +219,7 @@ public class AwsMysqlDuesRepository implements DuesRepository {
                 while (rs.next()) {
                     Dues temp = new Dues();
                     temp.setRegId(rs.getString("id"));
-                    temp.setDate(rs.getDate("date").toLocalDate());
-                   // temp.setDate(rs.getString("date"));
+                    temp.setDate(rs.getString("date"));
                     temp.setAmount(rs.getInt("amount"));
                     temp.setExplain(rs.getString("explanation"));
                     temp.setSemester(rs.getString("semester"));

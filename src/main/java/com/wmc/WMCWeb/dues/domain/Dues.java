@@ -16,7 +16,7 @@ public class Dues {
     private String regId;
     @NotNull(message = "date는 필수 값 입니다.")
     @Pattern(regexp = "[0-90-90-90-9]+[-]+[0-90-9]+[-]+[0-30-9]")
-    private LocalDate date;
+    private String date;
     @NotNull(message = "amount는 필수 값 입니다.")
     private Integer amount;
     @NotNull(message = "category는 필수 값 입니다.")
@@ -35,10 +35,10 @@ public class Dues {
         this.regId = regId;
     }
 
-    public LocalDate getDate(){
+    public String getDate(){
         return date;
     }
-    public void setDate(LocalDate date){
+    public void setDate(String date){
         this.date=date;
     }
 

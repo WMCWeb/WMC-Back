@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class DuesForm {
 
-    private Date date;
+    private String date;
     private Integer amount;
     private String category;
     private String explain;
@@ -13,11 +13,11 @@ public class DuesForm {
     private String del;
     private Integer balance;
 
-    public Date getDate(){
+    public String getDate(){
         return date;
     }
 
-    public void setDate(Date date){
+    public void setDate(String date){
         this.date = date;
     }
 
