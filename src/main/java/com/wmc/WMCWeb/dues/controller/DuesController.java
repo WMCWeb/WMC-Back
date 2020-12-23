@@ -7,7 +7,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -77,7 +76,6 @@ public class DuesController {
 
         String del = param.get("del");
         dues.setDel(del);
-
         Integer balance = Integer.valueOf(param.get("balance"));
         dues.setBalance(balance);
 
