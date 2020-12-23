@@ -53,12 +53,12 @@ public class DuesController {
         LocalDate date = LocalDate.parse(param.get("date"), DateTimeFormatter.ISO_DATE);
         if(param.containsKey("date")) {
           //logger.info("date값 존재");
-          dues.setDate(date);
+          //dues.setDate(date);
+            dues.setDate("");
         }
         else{
             // 필수 parameter 누락
             logger.error("date는 필수 파라미터 입니다.");
-
         }
         Integer amount = Integer.valueOf(param.get("amount"));
         dues.setAmount(amount);
@@ -108,7 +108,7 @@ public class DuesController {
      * @return List Of Dues
      */
     @GetMapping
-    public Map<String, List<Dues>> getDue(@RequestParam Map<String, String> param) {
+    public List<Dues>getDue(@RequestParam Map<String, String> param) {
         List<Dues> dues = null;
         if(param.containsKey("dateCode") && param.containsKey("pageNo")) {
             dues = duesService.findDues(param);
@@ -117,9 +117,7 @@ public class DuesController {
             // 필수 parameter 누락
             logger.error("dateCode와 pageNo는 필수 파라미터 입니다.");
         }
-        Map<String, List<Dues>> result = new HashMap<>();
-        result.put("data", dues);
-        return result;
+        return dues;
     }
 
 
