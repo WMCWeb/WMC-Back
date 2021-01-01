@@ -10,9 +10,9 @@ import java.util.Map;
 // 2020.09.20 이경훈: Repository 애노테이션 추가
 @Repository
 public interface DuesRepository {
-    Dues save(Dues dues) throws SQLException;
+    String save(Dues dues) throws SQLException;
 
     // Dues save(Dues dues);
-    List<Dues> findDue(Map<String, String> param);
+    List<Dues> findDue(Map<String, String> param) throws SQLException;
 
 }

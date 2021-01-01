@@ -25,8 +25,7 @@ public class DuesService {
     회비내역 등록
      */
     public String register(Dues dues) throws SQLException {
-        duesRepository.save(dues);
-        return dues.getRegId();
+        return duesRepository.save(dues);
     }
 
     /**
@@ -34,7 +33,7 @@ public class DuesService {
      * @param param : Request에서 넘어온 Parameter
      * @return 조회된 Due 리스트
      */
-    public List<Dues> findDues(Map<String, String> param){
+    public List<Dues> findDues(Map<String, String> param) throws SQLException {
         return duesRepository.findDue(param);
     }
 

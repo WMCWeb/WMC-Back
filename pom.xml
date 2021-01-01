@@ -65,7 +65,13 @@
             <version>2.0.2</version>
         </dependency>
 
-    </dependencies>
+		<!--2020.12.31 이경훈: For parsing Json  -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+
+	</dependencies>
 
 	<build>
 		<plugins>
