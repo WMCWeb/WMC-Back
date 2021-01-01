@@ -43,23 +43,23 @@ public class AwsMysqlDuesRepository implements DuesRepository {
     private static long sequence = 0L;
 
     @Override
-    public Dues save(Dues dues) throws SQLException {
+    public String save(Dues dues) throws SQLException {
         // 2020.11.22 이경훈: regNo를 db기반으로 생성하는 방식으로 수정
         // @TODO: 테스트 필요
+        String result = null;
         dues.setRegId(getRegNo());
         //String query = "insert into due(id,date,amount,category,explanation,semester,state,del,balance) values(?,?,?,?,?,?,?,?,?)";
 
         Connection conn = null;
         PreparedStatement pstm = null;
-        ResultSet rs = null;
         try {
              conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
               //ResultSet rs = pstm.executeQuery();
-            pstm = conn.prepareStatement("insert into due(id,date,amount,category,explanation,semester,state,del,balance) values(?,?,?,?,?,?,?,?,?)"
+            pstm = conn.prepareStatement("insert into due(id,date,amount,category,explanation,semester,state,del,balance) values(?,str_to_date(?, '%Y%m%d'),?,?,?,?,?,?,?)"
             ,Statement.RETURN_GENERATED_KEYS);
 
             pstm.setString(1,dues.getRegId());
-            pstm.setDate(2, Date.valueOf(dues.getDate()));
+            pstm.setString(2, dues.getDate());
             pstm.setInt(3,dues.getAmount());
             pstm.setString(4,dues.getCategory());
             pstm.setString(5,dues.getExplain());
@@ -68,25 +68,21 @@ public class AwsMysqlDuesRepository implements DuesRepository {
             pstm.setString(8,dues.getDel());
             pstm.setInt(9,Integer.valueOf(dues.getBalance()));
 
-            pstm.executeUpdate();
-            rs = pstm.getGeneratedKeys();
+            int count = pstm.executeUpdate();
 
-            if(rs.next()){
-                dues.setRegId(rs.getString(1));
+            if (count == 1){
+                result = dues.getRegId();
             }
-
-        }
-        catch(Exception e) {
-            logger.error("cannot execute query", e);
-            e.printStackTrace();
+            else{
+                throw new SQLException("cannot insert record");
+            }
         }
         finally {
-            if(rs != null) try {rs.close();} catch (Exception e2){}
             if(pstm != null) try {pstm.close();} catch (Exception e2){}
             if(conn != null) try {conn.close();} catch (Exception e2){}
         }
 
-        return null;
+        return result;
     }
 
     /**
@@ -117,7 +113,9 @@ public class AwsMysqlDuesRepository implements DuesRepository {
     // 2020.11.12 이경훈: 조회 개발 v1.0
     // @TODO: {1. 전체조회만 테스트 완료, 조건별로 테스트 필요}, {2. paging}
     @Override
-    public List<Dues> findDue(Map<String, String> param){
+    public List<Dues> findDue(Map<String, String> param) throws SQLException {
+        System.out.println("-----------------------------------");
+        System.out.println(getRegNo());
         StringBuilder sql = new StringBuilder();
         List<Dues> result = new ArrayList<>();
         sql.append("SELECT * FROM due WHERE del = 'N'\n");
@@ -212,9 +210,6 @@ public class AwsMysqlDuesRepository implements DuesRepository {
                     result.add(temp);
                     logger.debug(temp.toString() + "\n");
                 }
-        } catch (Exception e) {
-            logger.error("cannot select dues in findDue function");
-            e.printStackTrace();
         }
         return result;
     }

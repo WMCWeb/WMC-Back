@@ -1,14 +1,19 @@
 package com.wmc.WMCWeb.dues.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.wmc.WMCWeb.common.Response;
 import com.wmc.WMCWeb.dues.domain.Dues;
 import com.wmc.WMCWeb.dues.repository.AwsMysqlDuesRepository;
 import com.wmc.WMCWeb.dues.service.DuesService;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -40,9 +45,21 @@ public class DuesController {
      * 4. balance : 자동으로 계산 되게 하기
      * @return Dues
      */
-
+// @TODO: 필수파라미터누락된 케이스, 성공 케이스까지 테스트완료, --> DB연결 안되는 경우는 테스트 아직..
     @GetMapping("/new")
-    public Dues createDue(@RequestParam Map<String, String> param) throws SQLException {
+    public String createDue(@RequestParam Map<String, String> param) throws SQLException {
+
+        Gson gson = new Gson();
+        JsonObject result = new JsonObject();
+        Response info = new Response();
+        if(!param.containsKey("date") || !param.containsKey("amount") || !param.containsKey("category") ||
+                !param.containsKey("semester") ||!param.containsKey("state")){
+            // 필수파라미터 누락된 경우
+            result.addProperty("regId", "");
+            result.addProperty("info", gson.toJson(info.getAbseentParameter()));
+            return gson.toJson(result);
+        }
+
         Dues dues = new Dues();
         String date = param.get("date");
         dues.setDate(date);
@@ -62,8 +79,22 @@ public class DuesController {
         dues.setBalance(balance);
 
         //System.out.println(amount);
-        duesService.register(dues);
-        return dues;
+        try {
+            // 성공한 경우
+            result.addProperty("regId", duesService.register(dues));
+            result.addProperty("info", gson.toJson(info.getSuccess()));
+
+        }
+        catch (SQLException se){
+            // DB 에러
+            se.printStackTrace();
+            logger.error(se.getMessage());
+            result.addProperty("regId", "");
+            result.addProperty("info", gson.toJson(info.getDBError()));
+
+            return gson.toJson(result);
+        }
+        return gson.toJson(result);
         //http://localhost:8080/dues/news?date=20201003?amount=10000?category=B?explain=test?semester=2020-1?state=i?del=Y?balance=100
     }
 
@@ -86,16 +117,37 @@ public class DuesController {
      * @return List Of Dues
      */
     @GetMapping
-    public List<Dues> getDue(@RequestParam Map<String, String> param) {
+    public String getDue(@RequestParam Map<String, String> param) {
+
+        JsonObject result = new JsonObject();
+        Gson gson = new Gson();
+        Response info = new Response();
+
         List<Dues> dues = null;
         if(param.containsKey("dateCode") && param.containsKey("pageNo")) {
-            dues = duesService.findDues(param);
+            try {
+                dues = duesService.findDues(param);
+
+                gson = new GsonBuilder().setPrettyPrinting().create();
+
+                result.addProperty("data", gson.toJson(dues));
+                result.addProperty("info", gson.toJson(info.getSuccess()));
+                return gson.toJson(result);
+            }
+            catch(SQLException se){
+                logger.error("cannot select from db");
+                result.addProperty("data", "[]");
+                result.addProperty("info", gson.toJson(info.getDBError()));
+                return gson.toJson(result);
+            }
         }
         else{
             // 필수 parameter 누락
             logger.error("dateCode와 pageNo는 필수 파라미터 입니다.");
+            result.addProperty("data", "[]");
+            result.addProperty("info", gson.toJson(info.getAbseentParameter()));
+            return gson.toJson(result);
         }
-        return dues;
     }
 
 
