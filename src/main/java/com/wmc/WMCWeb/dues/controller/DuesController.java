@@ -166,9 +166,4 @@ public class DuesController {
             return gson.toJson(result);
         }
     }
-
-    @PostMapping
-    public String test(@RequestBody Dues body){
-        return body.toString();
-    }
 }
