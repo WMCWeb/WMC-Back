@@ -99,7 +99,6 @@ public class DuesController {
             // 성공한 경우
             result.addProperty("regId", duesService.register(dues));
             result.addProperty("info", gson.toJson(info.getSuccess()));
-
         }
         catch (SQLException se){
             // DB 에러
@@ -168,5 +167,8 @@ public class DuesController {
         }
     }
 
-
+    @PostMapping
+    public String test(@RequestBody Dues body){
+        return body.toString();
+    }
 }

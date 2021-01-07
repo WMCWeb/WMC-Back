@@ -95,15 +95,12 @@ public class Dues {
     @Override
     public String toString() {
         return "Dues{" +
-                "regId='" + regId + '\'' +
                 ", date='" + date + '\'' +
                 ", amount=" + amount +
                 ", category='" + category + '\'' +
                 ", explain='" + explain + '\'' +
                 ", semester='" + semester + '\'' +
                 ", state='" + state + '\'' +
-                ", del='" + del + '\'' +
-                ", balance=" + balance +
                 '}';
     }
 }
