@@ -114,8 +114,6 @@ public class AwsMysqlDuesRepository implements DuesRepository {
     // @TODO: {1. 전체조회만 테스트 완료, 조건별로 테스트 필요}, {2. paging}
     @Override
     public List<Dues> findDue(Map<String, String> param) throws SQLException {
-        System.out.println("-----------------------------------");
-        System.out.println(getRegNo());
         StringBuilder sql = new StringBuilder();
         List<Dues> result = new ArrayList<>();
         sql.append("SELECT * FROM due WHERE del = 'N'\n");
@@ -196,7 +194,7 @@ public class AwsMysqlDuesRepository implements DuesRepository {
                      throw new RuntimeException(e);
                  }
              }).get();
-             ResultSet rs = pstmt.executeQuery();) {
+             ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     Dues temp = new Dues();
                     temp.setRegId(rs.getString("id"));
@@ -214,4 +212,82 @@ public class AwsMysqlDuesRepository implements DuesRepository {
         return result;
     }
 
+    @Override
+    public String delete(String regId) throws SQLException {
+        return null;
+    }
+
+    /**
+     * 해당 regId의 회비 내역이 존재하는지 여부 확인
+     * @param regId 등록번호
+     * @return true: 존재할때, false: 존재하지 않을때
+     * @throws SQLException
+     */
+    public boolean isExists(String regId) throws SQLException {
+        String sql = "SELECT COUNT(id) AS cnt FROM due WHERE id = ?";
+        int result = 0;
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+             PreparedStatement pstmt = ((Supplier<PreparedStatement>)() -> {
+                 try {
+                     PreparedStatement s = conn.prepareStatement(sql.toString());
+                     s.setString(1, regId);
+                     return s;
+                 }
+                 catch (SQLException e) {
+                     logger.error("cannot make PreparedStatement in isExists function");
+                     throw new RuntimeException(e);
+                 }
+             }).get();
+             ResultSet rs = pstmt.executeQuery())
+        {
+                if(rs.next()){
+                    result = rs.getInt("cnt");
+                }
+        }
+        return result == 1;
+    }
+
+    public boolean isDeleted(String regId) throws SQLException {
+        String sql = "SELECT del FROM due WHERE id = ?";
+        String del = "";
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+             PreparedStatement pstmt = ((Supplier<PreparedStatement>)() -> {
+                 try {
+                     PreparedStatement s = conn.prepareStatement(sql.toString());
+                     s.setString(1, regId);
+                     return s;
+                 }
+                 catch (SQLException e) {
+                     logger.error("cannot make PreparedStatement in isExists function");
+                     throw new RuntimeException(e);
+                 }
+             }).get();
+             ResultSet rs = pstmt.executeQuery())
+        {
+            if(rs.next()){
+                del = rs.getString("del");
+            }
+        }
+        return "Y".equals(del);
+    }
+    /*
+    public boolean isExists(String regId) throws SQLException {
+        String sql = "SELECT COUNT(id) FROM due WHERE id = ?";
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+             PreparedStatement pstmt = ((Supplier<PreparedStatement>)() -> {
+                 try {
+                     PreparedStatement s = conn.prepareStatement(sql.toString());
+                     return s;
+                 }
+                 catch (SQLException e) {
+                     logger.error("cannot make PreparedStatement in isExists function");
+                     throw new RuntimeException(e);
+                 }
+             }).get();
+             ResultSet rs = pstmt.executeQuery())
+            {
+        }
+        return true;
+    }
+     */
 }

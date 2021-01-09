@@ -37,4 +37,20 @@ public class DuesService {
         return duesRepository.findDue(param);
     }
 
+    /**
+     * 회비 내역 삭제
+     * @param regId : 삭제할 회비 내역
+     * @return
+     * @throws SQLException
+     */
+    public String deleteDue(String regId) throws SQLException{
+        if(!duesRepository.isExists(regId)){
+            return "N";
+        }
+        if (duesRepository.isDeleted(regId)) {
+            return "E";
+        }
+        //@TODO: 정상처리시 Y리턴.
+        return null;
+    }
 }
