@@ -21,4 +21,22 @@ public class Response {
         this.message = "Cannot access DB";
         return this;
     }
+
+    public Response getFail(){
+        this.code = "F";
+        this.message = "Failed";
+        return this;
+    }
+
+    public Response getAlreadyDeleted(){
+        this.code = "E";
+        this.message = "Already Deleted";
+        return this;
+    }
+
+    public Response getNotExists(){
+        this.code = "N";
+        this.message = "Not Exists";
+        return this;
+    }
 }

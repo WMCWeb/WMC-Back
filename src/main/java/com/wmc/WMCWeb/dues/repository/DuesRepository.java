@@ -15,4 +15,5 @@ public interface DuesRepository {
     // Dues save(Dues dues);
     List<Dues> findDue(Map<String, String> param) throws SQLException;
 
+    String delete(String regId) throws SQLException;
 }
