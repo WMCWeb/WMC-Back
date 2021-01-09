@@ -12,4 +12,12 @@
  -[36m2021/01/07 22:48:46,512[m [34m[DEBUG][m  [org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor] [33m[http-nio-8080-exec-1][m- Using 'text/plain', given [*/*] and supported [text/plain, */*, text/plain, */*, application/json, application/*+json, application/json, application/*+json]
  -[36m2021/01/07 22:48:46,512[m [34m[DEBUG][m  [org.springframework.core.log.LogFormatUtils] [33m[http-nio-8080-exec-1][m- Writing ["Dues{, date='1', amount=2, category='3', explain='4', semester='5', state='6'}"]
  -[36m2021/01/07 22:48:46,519[m [34m[DEBUG][m  [org.springframework.web.servlet.FrameworkServlet] [33m[http-nio-8080-exec-1][m- Completed 200 OK
+ -[36m2021/01/07 22:55:34,114[m [34m[DEBUG][m  [org.springframework.context.support.AbstractApplicationContext] [33m[SpringContextShutdownHook][m- Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@475835b1, started on Thu Jan 07 22:48:01 KST 2021
+ -[36m2021/01/07 22:55:34,116[m [34m[DEBUG][m  [org.springframework.core.env.PropertySourcesPropertyResolver] [33m[SpringContextShutdownHook][m- Found key 'spring.liveBeansView.mbeanDomain' in PropertySource 'systemProperties' with value of type String
+ -[36m2021/01/07 22:55:34,117[m [34m[DEBUG][m  [org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup] [33m[SpringContextShutdownHook][m- Stopping beans in phase 2147483647
+ -[36m2021/01/07 22:55:34,119[m [34m[DEBUG][m  [org.springframework.context.support.DefaultLifecycleProcessor] [33m[SpringContextShutdownHook][m- Bean 'webServerGracefulShutdown' completed its stop procedure
+ -[36m2021/01/07 22:55:34,120[m [34m[DEBUG][m  [org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup] [33m[SpringContextShutdownHook][m- Stopping beans in phase 2147483646
+ -[36m2021/01/07 22:55:34,147[m [34m[DEBUG][m  [org.springframework.context.support.DefaultLifecycleProcessor] [33m[SpringContextShutdownHook][m- Bean 'webServerStartStop' completed its stop procedure
+ -[36m2021/01/07 22:55:34,148[m [34m[DEBUG][m  [org.springframework.jmx.export.MBeanExporter] [33m[SpringContextShutdownHook][m- Unregistering JMX-exposed beans on shutdown
+ -[36m2021/01/07 22:55:34,150[m [32m[INFO ][m  [org.springframework.scheduling.concurrent.ExecutorConfigurationSupport] [33m[SpringContextShutdownHook][m- Shutting down ExecutorService 'applicationTaskExecutor'
  -
